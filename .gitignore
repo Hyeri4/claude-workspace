@@ -1,0 +1,52 @@
+# ===== 민감 정보 (절대 업로드 금지) =====
+# 환경변수 / 비밀 정보
+.env
+.env.*
+*.env
+
+# 키 / 인증서 / 비밀번호
+*.key
+*.pem
+*.ppk
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.p12
+*.pfx
+*credential*
+*credentials*
+*secret*
+*.token
+
+# 개인정보 / 민감 문서 폴더 (이력서, 매출, 복구코드 등)
+docs/
+*복구코드*
+*recovery-code*
+*recovery_code*
+
+# 백업 파일
+*.bak
+
+# ===== OS / 에디터 생성 파일 =====
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# 에디터
+.vscode/
+.idea/
+*.swp
+*~
+
+# ===== 로그 / 임시 파일 =====
+*.log
+*.tmp
+tmp/
+temp/
