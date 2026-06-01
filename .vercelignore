@@ -1,0 +1,26 @@
+# ===== Vercel 공개 배포에서 제외할 파일 =====
+# 배포되는 것은 index.html (포트폴리오) 하나뿐.
+# 아래 작업/민감 파일은 공개 URL로 노출되지 않도록 배포에서 제외합니다.
+
+# 작업 공간 문서 (공개 불필요)
+CLAUDE.md
+README.md
+SECURITY.md
+.gitignore
+
+# 작업 기록
+tasks/
+
+# 유틸리티 스크립트
+weather/
+
+# 개인정보·민감 문서 (이미 git에서도 제외됨)
+docs/
+
+# 비밀 정보 / 백업
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.bak

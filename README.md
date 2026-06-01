@@ -13,7 +13,9 @@ claude-workspace/
 ├── README.md          # 이 파일 — 작업 공간 안내
 ├── SECURITY.md        # 🚨 키 노출 등 비상시 대응 매뉴얼
 ├── .gitignore         # Git 업로드 제외 목록 (민감 파일 차단)
-├── portfolio.html     # 포트폴리오 웹페이지
+├── index.html         # 포트폴리오 웹페이지 (Vercel 배포 대상)
+├── vercel.json        # Vercel 배포 설정 (정적 사이트 + 보안 헤더)
+├── .vercelignore      # 배포 제외 목록 (포트폴리오만 공개)
 ├── tasks/             # 작업 기록
 │   ├── todo.md        #   오늘 할 일 (체크리스트)
 │   └── progress.md    #   한 일 기록 (append-only)
@@ -27,6 +29,25 @@ claude-workspace/
 
 > 🔒 `.env`, `docs/`, 각종 키·비밀번호 파일은 `.gitignore`로 막아 두어
 > GitHub(private 레포 포함)에 **업로드되지 않습니다.**
+
+---
+
+## 🚀 포트폴리오 웹 배포 (Vercel)
+
+포트폴리오(`index.html`)를 Vercel로 배포할 수 있게 세팅돼 있습니다.
+
+**배포 방법 (Vercel 웹사이트에서):**
+1. [vercel.com](https://vercel.com) 로그인 → **Add New… → Project**
+2. GitHub의 **`Hyeri4/claude-workspace`** 레포를 Import
+3. Framework Preset: **Other** (그대로 두면 됨 — 빌드 과정 없는 정적 사이트)
+4. **Deploy** 클릭 → 끝. `https://<프로젝트명>.vercel.app` 주소가 생깁니다.
+
+**배포되는 것 / 안 되는 것:**
+- ✅ 공개: `index.html` (포트폴리오 페이지) 하나만
+- 🔒 제외: `CLAUDE.md`, `SECURITY.md`, `README.md`, `tasks/`, `weather/`, `docs/` 등
+  → `.vercelignore`가 막아 줍니다. (레포는 private지만 **배포 URL은 공개**이므로 중요)
+
+> 💡 별도 빌드 명령·설치 과정이 없습니다. `index.html` 한 장짜리 정적 사이트예요.
 
 ---
 
