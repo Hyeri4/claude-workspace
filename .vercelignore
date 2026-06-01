@@ -11,8 +11,11 @@ SECURITY.md
 # 작업 기록
 tasks/
 
-# 유틸리티 스크립트
+# 유틸리티 / 개발용 (배포 불필요)
 weather/
+serve.js
+supabase/
+config.example.js
 
 # 개인정보·민감 문서 (이미 git에서도 제외됨)
 docs/

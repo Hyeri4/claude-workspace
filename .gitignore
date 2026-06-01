@@ -2,7 +2,11 @@
 # 환경변수 / 비밀 정보
 .env
 .env.*
+.env.local
 *.env
+
+# Supabase 등 런타임 설정 (실제 키가 들어있는 파일 — config.example.js는 올림)
+config.js
 
 # 키 / 인증서 / 비밀번호
 *.key
