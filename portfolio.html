@@ -6,7 +6,25 @@
 <title>김수민 · Marketing Specialist</title>
 <style>
   :root{
-    /* ===== Dark mode palette ===== */
+    /* ===== Light mode (기본) ===== */
+    --teal:#0d9488;
+    --teal-dark:#0f766e;
+    --teal-light:#14b8a6;
+    --ink:#1f2937;
+    --muted:#64748b;
+    --bg:#ffffff;
+    --bg-alt:#f8fafc;
+    --surface:#ffffff;     /* 카드·태그 표면 */
+    --line:#e5e7eb;
+    --nav-bg:rgba(255,255,255,.85);
+    --chip-bg:#f8fafc;
+    --chip-text:#475569;
+    --li-text:#374151;
+    --shadow:0 4px 20px rgba(15,118,110,.08);
+    --shadow-lg:0 12px 40px rgba(15,118,110,.14);
+  }
+  [data-theme="dark"]{
+    /* ===== Dark mode ===== */
     --teal:#2dd4bf;        /* 밝은 강조색 (제목·점·링크) */
     --teal-dark:#14b8a6;   /* 중간 강조색 (버튼·그라데이션·소제목) */
     --teal-light:#5eead4;
@@ -16,11 +34,18 @@
     --bg-alt:#1e293b;      /* 교차 섹션 배경 */
     --surface:#1e293b;     /* 카드·태그 표면 */
     --line:#334155;        /* 테두리 */
+    --nav-bg:rgba(15,23,42,.8);
+    --chip-bg:#0f172a;
+    --chip-text:#cbd5e1;
+    --li-text:#cbd5e1;
     --shadow:0 4px 20px rgba(0,0,0,.35);
     --shadow-lg:0 12px 40px rgba(0,0,0,.5);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;color-scheme:dark}
+  html{scroll-behavior:smooth}
+  :root{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark}
+  body{transition:background .3s,color .3s}
   body{
     font-family:"Pretendard","Pretendard Variable","Apple SD Gothic Neo",
       "Malgun Gothic","맑은 고딕",system-ui,-apple-system,sans-serif;
@@ -33,7 +58,7 @@
   /* ===== Nav ===== */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(15,23,42,.8);backdrop-filter:blur(10px);
+    background:var(--nav-bg);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -41,6 +66,13 @@
   nav ul{display:flex;gap:28px;list-style:none}
   nav ul a{color:var(--muted);font-size:.92rem;font-weight:500;transition:color .2s}
   nav ul a:hover{color:var(--teal)}
+  .nav-right{display:flex;align-items:center;gap:22px}
+  .theme-toggle{
+    background:transparent;border:1px solid var(--line);color:var(--ink);
+    width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.15rem;line-height:1;
+    display:inline-flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,transform .2s;
+  }
+  .theme-toggle:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
   .nav-toggle{display:none}
 
   /* ===== Hero ===== */
@@ -93,7 +125,7 @@
   .job h3{font-size:1.2rem;font-weight:800;margin-top:4px}
   .job .org{color:var(--muted);font-size:.95rem;margin-top:2px;margin-bottom:14px}
   .job ul{list-style:none;display:grid;gap:9px}
-  .job ul li{position:relative;padding-left:20px;color:#cbd5e1;font-size:.97rem}
+  .job ul li{position:relative;padding-left:20px;color:var(--li-text);font-size:.97rem}
   .job ul li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--teal-light)}
   .job ul li b{color:var(--teal-dark)}
 
@@ -113,8 +145,8 @@
   .skill{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
   .skill h4{font-size:.95rem;color:var(--teal-dark);font-weight:800;margin-bottom:10px}
   .skill .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .skill .chips span{background:var(--bg);border:1px solid var(--line);padding:5px 12px;border-radius:8px;
-    font-size:.84rem;color:#cbd5e1;font-weight:500}
+  .skill .chips span{background:var(--chip-bg);border:1px solid var(--line);padding:5px 12px;border-radius:8px;
+    font-size:.84rem;color:var(--chip-text);font-weight:500}
 
   /* Contact */
   #contact{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff}
@@ -138,6 +170,14 @@
     header.hero{padding:72px 0 80px}
   }
 </style>
+<script>
+  // 페이지가 그려지기 전에 테마를 먼저 적용 — 화면 깜빡임 방지
+  // 저장된 선택이 있으면 그것을, 없으면 다크를 기본으로 사용
+  (function () {
+    var saved = localStorage.getItem("theme");
+    document.documentElement.setAttribute("data-theme", saved || "dark");
+  })();
+</script>
 </head>
 <body>
 
@@ -145,13 +185,17 @@
 <nav>
   <div class="wrap">
     <span class="logo">김수민</span>
-    <ul>
-      <li><a href="#about">소개</a></li>
-      <li><a href="#experience">경력</a></li>
-      <li><a href="#projects">프로젝트</a></li>
-      <li><a href="#skills">스킬</a></li>
-      <li><a href="#contact">연락처</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#about">소개</a></li>
+        <li><a href="#experience">경력</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#skills">스킬</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+      <button id="themeToggle" class="theme-toggle" type="button"
+              aria-label="라이트/다크 모드 전환" title="라이트/다크 모드 전환">🌙</button>
+    </div>
   </div>
 </nav>
 
@@ -335,6 +379,28 @@
 <footer>
   © 2026 김수민 · Marketing Specialist — Portfolio
 </footer>
+
+<script>
+  // 라이트/다크 전환 버튼
+  (function () {
+    var btn = document.getElementById("themeToggle");
+    var root = document.documentElement;
+
+    // 현재 테마에 맞춰 버튼 아이콘 표시 (다크면 해, 라이트면 달)
+    function syncIcon() {
+      var isDark = root.getAttribute("data-theme") === "dark";
+      btn.textContent = isDark ? "☀️" : "🌙";
+    }
+    syncIcon();
+
+    btn.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);  // 선택 기억
+      syncIcon();
+    });
+  })();
+</script>
 
 </body>
 </html>
